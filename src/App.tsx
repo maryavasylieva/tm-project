@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { ThemeProvider, makeStyles, createStyles } from "@material-ui/core";
 
-import { publicRoutes } from "./Components/routes";
+import { publicRoutes } from "./Components/routes/routes";
 import theme from "./stylesheets/theme";
 
 const App = () => {
