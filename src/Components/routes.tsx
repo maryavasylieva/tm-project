@@ -1,4 +1,3 @@
-import React, { lazy } from "react";
 
 type TRoute = {
   path: string;
