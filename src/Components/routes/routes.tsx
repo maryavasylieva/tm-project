@@ -1,3 +1,4 @@
+
 type TRoute = {
   path: string;
   Component: JSX.Element;
