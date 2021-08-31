@@ -1,7 +1,7 @@
 
 type TRoute = {
   path: string;
-  Component: JSX.Element;
+  Component: React.ComponentType<any>;
   exact?: boolean;
   name: string;
 };
