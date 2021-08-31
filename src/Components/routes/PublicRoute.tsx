@@ -2,7 +2,7 @@
 import { Route, Redirect, RouteProps } from 'react-router';
 
 type TPublicRouteProps = {
-  component: JSX.Element;
+  component: React.ComponentType<any>;
   isAuthenticated: boolean;
 } & RouteProps;
 

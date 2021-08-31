@@ -3,7 +3,7 @@ import { Redirect, Route, RouteProps } from 'react-router';
 
 type TPrivateRouteProps = {
   isAuthenticated: boolean;
-  component: JSX.Element;
+  component: React.ComponentType<any>;
 } & RouteProps;
 
 const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }: TPrivateRouteProps) => {
