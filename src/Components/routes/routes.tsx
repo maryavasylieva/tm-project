@@ -1,4 +1,3 @@
-
 type TRoute = {
   path: string;
   Component: React.ComponentType<any>;
