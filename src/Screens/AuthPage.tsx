@@ -18,16 +18,19 @@ const SIGNIN_SCHEMA = Yup.object().shape({
 type TFormikValues = {
   email: string;
   password: string;
+  rememberMe: boolean;
 };
 
 const AuthPage: React.FC = () => {
-  const initialValues: TFormikValues = { email: '', password: '' };
+  const initialValues: TFormikValues = { email: '', password: '', rememberMe: false };
   return (
     <div>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }: FormikHelpers<TFormikValues>) => {
           setTimeout(() => {
+            localStorage.setItem('email', values.email);
+            localStorage.setItem('rememberMe', String(values.rememberMe));
             // eslint-disable-next-line no-alert
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -39,6 +42,7 @@ const AuthPage: React.FC = () => {
           <AuthenticationForm
             password={values.password}
             email={values.email}
+            rememberMe={values.rememberMe}
             handleSubmit={handleSubmit}
             handleBlur={handleBlur}
             handleChange={handleChange}

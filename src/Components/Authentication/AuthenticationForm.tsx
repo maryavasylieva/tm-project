@@ -7,7 +7,17 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line object-curly-newline
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { Checkbox, CheckboxProps, FormControlLabel, TextField, Button } from '@material-ui/core';
+import {
+  Checkbox,
+  CheckboxProps,
+  FormControlLabel,
+  TextField,
+  Button,
+  IconButton,
+} from '@material-ui/core';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { ErrorMessage } from 'formik';
 
 const useStyles = makeStyles({
@@ -87,6 +97,7 @@ const ColorButton = withStyles({
 type TLoginProps = {
   email: string;
   password: string;
+  rememberMe: boolean;
   handleBlur: (e: React.ChangeEvent<any>) => void;
   handleChange: (e: React.ChangeEvent<any>) => void;
   handleSubmit: (e: React.SyntheticEvent<any>) => void;
@@ -95,11 +106,17 @@ type TLoginProps = {
 const AuthenticationForm = ({
   email,
   password,
+  rememberMe,
   handleChange,
   handleBlur,
   handleSubmit,
 }: TLoginProps) => {
+  const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className={classes.container}>
       <div className={classes.formContainer}>
@@ -126,13 +143,28 @@ const AuthenticationForm = ({
             size="small"
             name="password"
             autoComplete="password"
+            type={showPassword ? 'text' : 'password'}
             onChange={handleChange}
             onBlur={handleBlur}
             value={password}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => handleClickShowPassword()}>
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
             required
           />
           <ErrorMessage name="password" />
-          <FormControlLabel control={<GreyCheckbox name="rememberMe" />} label="Remember me" />
+          <FormControlLabel
+            control={<GreyCheckbox name="rememberMe" />}
+            label="Remember me"
+            onChange={handleChange}
+            value={rememberMe}
+          />
           <ColorButton variant="contained" type="submit">
             Sign In
           </ColorButton>
