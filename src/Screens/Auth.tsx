@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable operator-linebreak */
 /* eslint-disable object-curly-newline */
 /* eslint-disable @typescript-eslint/comma-dangle */
@@ -22,7 +21,7 @@ type TFormikValues = {
   rememberMe: boolean;
 };
 
-const AuthPage: React.FC = () => {
+const AuthPage = () => {
   const initialValues: TFormikValues = { email: '', password: '', rememberMe: false };
 
   const [open, setOpen] = useState<boolean>(false);
@@ -34,22 +33,27 @@ const AuthPage: React.FC = () => {
 
     setOpen(false);
   };
+
+  const userCredCheck = (values: { email: any; password: any; rememberMe: any }) => {
+    if (
+      values.email !== process.env.REACT_APP_EMAIL ||
+      values.password !== process.env.REACT_APP_PASSWORD
+    ) {
+      setOpen(true);
+    } else {
+      localStorage.setItem('email', values.email);
+      localStorage.setItem('rememberMe', String(values.rememberMe));
+    }
+  };
+
   return (
     <div>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }: FormikHelpers<TFormikValues>) => {
           setTimeout(() => {
-            if (
-              values.email !== process.env.REACT_APP_EMAIL ||
-              values.password !== process.env.REACT_APP_PASSWORD
-            ) {
-              setOpen(true);
-            } else {
-              localStorage.setItem('email', values.email);
-              localStorage.setItem('rememberMe', String(values.rememberMe));
-            }
             // eslint-disable-next-line no-alert
+            userCredCheck(values);
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 500);

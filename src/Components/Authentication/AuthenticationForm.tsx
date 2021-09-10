@@ -1,11 +1,6 @@
-/* eslint-disable no-console */
-/* eslint-disable object-curly-newline */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/jsx-wrap-multilines */
 /* eslint-disable @typescript-eslint/comma-dangle */
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
-// eslint-disable-next-line object-curly-newline
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
   Checkbox,
@@ -15,6 +10,7 @@ import {
   Button,
   IconButton,
   Snackbar,
+  Typography,
 } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
@@ -36,7 +32,7 @@ const useStyles = makeStyles({
   formContainer: {
     margin: '0 auto',
     width: '400px',
-    padding: '40px 40px 40px 40px',
+    padding: '40px',
     borderRadius: '8px',
     backgroundColor: '#fff',
   },
@@ -51,14 +47,7 @@ const useStyles = makeStyles({
   form: {
     display: 'flex',
     flexDirection: 'column',
-    // padding-top: 20px;
     justifyContent: 'center',
-  },
-  formLabel: {
-    fontSize: '18px',
-    fontFamily: 'Roboto, sans-serif',
-    fontWeight: 400,
-    color: '#000000',
   },
   inputError: {
     color: 'red',
@@ -96,6 +85,15 @@ const ColorButton = withStyles({
   },
 })(Button);
 
+const FormLabel = withStyles({
+  root: {
+    marginTop: '12px',
+    marginBottom: '12px',
+    fontWeight: 400,
+    fontSize: '18px',
+  },
+})(Typography);
+
 type TLoginProps = {
   email: string;
   password: string;
@@ -121,7 +119,7 @@ const AuthenticationForm = ({
   handleBlur,
   handleSubmit,
 }: TLoginProps) => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const classes = useStyles();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -132,7 +130,9 @@ const AuthenticationForm = ({
       <div className={classes.formContainer}>
         <h2 className={classes.headlineForm}>Log In</h2>
         <form className={classes.form} method="GET" onSubmit={handleSubmit}>
-          <p className={classes.formLabel}>Email</p>
+          <FormLabel variant="subtitle1" align="left">
+            Email
+          </FormLabel>
           <TextField
             label="Enter email"
             variant="outlined"
@@ -146,7 +146,9 @@ const AuthenticationForm = ({
             required
           />
           <ErrorMessage name="email" />
-          <p className={classes.formLabel}>Password</p>
+          <FormLabel variant="subtitle1" align="left">
+            Password
+          </FormLabel>
           <TextField
             label="Enter password"
             variant="outlined"
@@ -193,7 +195,6 @@ const AuthenticationForm = ({
           Error when authenticating
         </Alert>
       </Snackbar>
-      {/* <Link to="/main">Dashboard(test)</Link> */}
     </div>
   );
 };
