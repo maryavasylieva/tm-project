@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 // eslint-disable-next-line object-curly-newline
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Checkbox, CheckboxProps, FormControlLabel, TextField, Button } from '@material-ui/core';
+import { ErrorMessage } from 'formik';
 
 const useStyles = makeStyles({
   container: {
@@ -83,13 +84,27 @@ const ColorButton = withStyles({
   },
 })(Button);
 
-const AuthenticationForm = () => {
+type TLoginProps = {
+  email: string;
+  password: string;
+  handleBlur: (e: React.ChangeEvent<any>) => void;
+  handleChange: (e: React.ChangeEvent<any>) => void;
+  handleSubmit: (e: React.SyntheticEvent<any>) => void;
+};
+
+const AuthenticationForm = ({
+  email,
+  password,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+}: TLoginProps) => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
       <div className={classes.formContainer}>
         <h2 className={classes.headlineForm}>Log In</h2>
-        <form className={classes.form} method="GET">
+        <form className={classes.form} method="GET" onSubmit={handleSubmit}>
           <p className={classes.formLabel}>Email</p>
           <TextField
             label="Enter email"
@@ -97,9 +112,13 @@ const AuthenticationForm = () => {
             size="small"
             name="email"
             type="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={email}
             autoFocus
             required
           />
+          <ErrorMessage name="email" />
           <p className={classes.formLabel}>Password</p>
           <TextField
             label="Enter password"
@@ -107,8 +126,12 @@ const AuthenticationForm = () => {
             size="small"
             name="password"
             autoComplete="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={password}
             required
           />
+          <ErrorMessage name="password" />
           <FormControlLabel control={<GreyCheckbox name="rememberMe" />} label="Remember me" />
           <ColorButton variant="contained" type="submit">
             Sign In
