@@ -14,10 +14,12 @@ import {
   TextField,
   Button,
   IconButton,
+  Snackbar,
 } from '@material-ui/core';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import MuiAlert, { AlertProps } from '@material-ui/lab/Alert';
 import { ErrorMessage } from 'formik';
 
 const useStyles = makeStyles({
@@ -98,16 +100,24 @@ type TLoginProps = {
   email: string;
   password: string;
   rememberMe: boolean;
+  open: boolean;
   handleBlur: (e: React.ChangeEvent<any>) => void;
   handleChange: (e: React.ChangeEvent<any>) => void;
+  handleClose: (e: React.ChangeEvent<any>) => void;
   handleSubmit: (e: React.SyntheticEvent<any>) => void;
 };
+
+function Alert(props: AlertProps) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 const AuthenticationForm = ({
   email,
   password,
   rememberMe,
+  open,
   handleChange,
+  handleClose,
   handleBlur,
   handleSubmit,
 }: TLoginProps) => {
@@ -170,6 +180,19 @@ const AuthenticationForm = ({
           </ColorButton>
         </form>
       </div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity="error">
+          Error when authenticating
+        </Alert>
+      </Snackbar>
       {/* <Link to="/main">Dashboard(test)</Link> */}
     </div>
   );

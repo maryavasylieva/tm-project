@@ -6,6 +6,7 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import AuthenticationForm from '@app/Components/Authentication';
+import { useState } from 'react';
 
 const SIGNIN_SCHEMA = Yup.object().shape({
   password: Yup.string()
@@ -23,14 +24,31 @@ type TFormikValues = {
 
 const AuthPage: React.FC = () => {
   const initialValues: TFormikValues = { email: '', password: '', rememberMe: false };
+
+  const [open, setOpen] = useState<boolean>(false);
+
+  const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
   return (
     <div>
       <Formik
         initialValues={initialValues}
         onSubmit={(values, { setSubmitting }: FormikHelpers<TFormikValues>) => {
           setTimeout(() => {
-            localStorage.setItem('email', values.email);
-            localStorage.setItem('rememberMe', String(values.rememberMe));
+            if (
+              values.email !== process.env.REACT_APP_EMAIL ||
+              values.password !== process.env.REACT_APP_PASSWORD
+            ) {
+              setOpen(true);
+            } else {
+              localStorage.setItem('email', values.email);
+              localStorage.setItem('rememberMe', String(values.rememberMe));
+            }
             // eslint-disable-next-line no-alert
             alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
@@ -46,6 +64,8 @@ const AuthPage: React.FC = () => {
             handleSubmit={handleSubmit}
             handleBlur={handleBlur}
             handleChange={handleChange}
+            open={open}
+            handleClose={handleClose}
           />
         )}
       </Formik>
