@@ -1,3 +1,3 @@
-import AuthenticationForm from './AuthenticationForm';
+export { default } from './AuthenticationForm';
 
-export default AuthenticationForm;
+// export default AuthenticationForm;

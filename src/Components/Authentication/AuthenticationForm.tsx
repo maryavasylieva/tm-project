@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable @typescript-eslint/comma-dangle */
 import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {
@@ -119,7 +117,7 @@ const AuthenticationForm = ({
   handleBlur,
   handleSubmit,
 }: TLoginProps) => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
   const classes = useStyles();
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);

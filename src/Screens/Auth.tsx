@@ -1,6 +1,3 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable object-curly-newline */
-/* eslint-disable @typescript-eslint/comma-dangle */
 import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 

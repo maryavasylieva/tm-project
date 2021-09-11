@@ -16,6 +16,6 @@ export const publicRoutes: TRoute[] = [
     exact: true,
     Component: <AsyncAuthPage />,
     name: '',
-  }
+  },
 ];
 export const privateRoutes: TRoute[] = [];
