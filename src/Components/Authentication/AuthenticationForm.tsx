@@ -10,6 +10,7 @@ import {
   Snackbar,
   Typography,
 } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
@@ -22,41 +23,25 @@ const useStyles = makeStyles({
     backgroundColor:
       'background: #3494E6; background: -webkit-linear-gradient(to left, #EC6EAD, #3494E6);background: linear-gradient(to left, #EC6EAD, #3494E6);',
     backgroundSize: 'cover',
-    display: 'flex',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
   },
   formContainer: {
-    margin: '0 auto',
-    width: '400px',
-    padding: '40px',
     borderRadius: '8px',
     backgroundColor: '#fff',
-  },
-  headlineForm: {
-    fontSize: '30px',
-    color: '#091e3f',
-    fontWeight: 600,
-    textAlign: 'center',
-    fontFamily: 'Roboto, sans-serif',
-    margin: '20px 0 20px 0',
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  inputError: {
-    color: 'red',
-    marginBottom: '15px',
-    textAlign: 'left',
-    textTransform: 'uppercase',
-    fontSize: '10px',
-    fontWeight: 600,
-    fontFamily: 'Roboto, sans-serif',
-  },
 });
+
+const FormHeadline = withStyles({
+  root: {
+    fontSize: '30px',
+    fontWeight: 600,
+    margin: '20px 0 20px 0',
+  },
+})(Typography);
 
 const GreyCheckbox = withStyles({
   root: {
@@ -124,9 +109,11 @@ const AuthenticationForm = ({
   };
 
   return (
-    <div className={classes.container}>
-      <div className={classes.formContainer}>
-        <h2 className={classes.headlineForm}>Log In</h2>
+    <Box display="flex" justifyContent="center" alignItems="center" className={classes.container}>
+      <Box width={400} p={5} className={classes.formContainer}>
+        <FormHeadline variant="h2" align="center" color="textPrimary">
+          Log In
+        </FormHeadline>
         <form className={classes.form} method="GET" onSubmit={handleSubmit}>
           <FormLabel variant="subtitle1" align="left">
             Email
@@ -179,7 +166,7 @@ const AuthenticationForm = ({
             Sign In
           </ColorButton>
         </form>
-      </div>
+      </Box>
       <Snackbar
         anchorOrigin={{
           vertical: 'top',
@@ -193,7 +180,7 @@ const AuthenticationForm = ({
           Error when authenticating
         </Alert>
       </Snackbar>
-    </div>
+    </Box>
   );
 };
 

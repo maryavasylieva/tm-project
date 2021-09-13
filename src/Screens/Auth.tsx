@@ -31,7 +31,7 @@ const AuthPage = () => {
     setOpen(false);
   };
 
-  const userCredCheck = (values: { email: any; password: any; rememberMe: any }) => {
+  const userCredCheck = (values: { email: string; password: string; rememberMe: boolean }) => {
     if (
       values.email !== process.env.REACT_APP_EMAIL ||
       values.password !== process.env.REACT_APP_PASSWORD
